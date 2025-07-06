@@ -48,9 +48,15 @@ async function loadQuizzes() {
 }
 
 function showQuizSelection() {
+    console.log('showQuizSelection called');
     const quizSelection = document.getElementById('quiz-selection');
-    quizSelection.classList.remove('hidden');
-    loadQuizzes();
+    if (quizSelection) {
+        quizSelection.classList.remove('hidden');
+        console.log('Quiz selection shown');
+        loadQuizzes();
+    } else {
+        console.error('quiz-selection element not found');
+    }
 }
 
 function onQuizSelected() {

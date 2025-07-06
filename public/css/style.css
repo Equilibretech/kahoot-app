@@ -22,6 +22,30 @@ body {
   max-width: 400px;
   width: 100%;
   text-align: center;
+  position: relative;
+}
+
+.admin-access {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.admin-btn {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border: 1px solid #667eea;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: scale(1.05);
 }
 
 h1 {
