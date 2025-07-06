@@ -16,7 +16,39 @@ const players = new Map();
 
 function loadQuizzes() {
   try {
-    const data = fs.readFileSync(path.join(__dirname, '../data/quiz-store.json'), 'utf8');
+    const dataPath = path.join(__dirname, '../data');
+    const filePath = path.join(dataPath, 'quiz-store.json');
+    
+    // Créer le dossier data s'il n'existe pas
+    if (!fs.existsSync(dataPath)) {
+      fs.mkdirSync(dataPath, { recursive: true });
+    }
+    
+    // Si le fichier n'existe pas, créer avec les quiz par défaut
+    if (!fs.existsSync(filePath)) {
+      const defaultQuizzes = {
+        quizzes: [
+          {
+            id: "default",
+            title: "Quiz Général",
+            description: "Questions générales de culture",
+            createdAt: "2024-01-01T00:00:00Z",
+            questions: [
+              {
+                id: 1,
+                question: "Quelle est la capitale de la France ?",
+                options: ["Paris", "Lyon", "Marseille", "Toulouse"],
+                correct: 0,
+                timeLimit: 30
+              }
+            ]
+          }
+        ]
+      };
+      fs.writeFileSync(filePath, JSON.stringify(defaultQuizzes, null, 2));
+    }
+    
+    const data = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.error('Erreur lors du chargement des quiz:', error);
