@@ -119,7 +119,6 @@
             <div id="setup-screen">
                 <div class="control-buttons">
                     <button onclick="location.href='/quiz-builder'" style="background: #28a745;">🎯 Créer un Quiz</button>
-                    <button onclick="showQuizList()">📋 Mes Quiz</button>
                 </div>
                 
                 <input type="text" id="host-name" placeholder="Nom de l'hôte" value="Admin">
@@ -136,14 +135,6 @@
                     </div>
                 </div>
 
-                <div id="quiz-list-admin" class="hidden">
-                    <h3>Mes Quiz Créés</h3>
-                    <div id="admin-quiz-list-container">
-                        <!-- Les quiz seront chargés ici -->
-                    </div>
-                    <button onclick="hideQuizList()" style="background: #667eea; margin-top: 15px;">← Retour</button>
-                    <button onclick="location.href='/quiz-builder'" style="background: #28a745; margin-top: 15px;">+ Créer un nouveau quiz</button>
-                </div>
                 
                 <button onclick="createGame()" id="create-game-btn" disabled>Créer un nouveau jeu</button>
             </div>
