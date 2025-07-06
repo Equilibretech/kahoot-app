@@ -6,3 +6,4 @@ cmd = "node server/app.js"
 
 [variables]
 NODE_ENV = "production"
+DOMAIN = "app.helosens.fr"

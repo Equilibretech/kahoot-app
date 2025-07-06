@@ -6,7 +6,44 @@ const fs = require('fs');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+
+// Configuration CORS pour helosens.fr
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://app.helosens.fr',
+  'https://helosens.fr',
+  'https://*.up.railway.app'
+];
+
+const io = socketIo(server, {
+  cors: {
+    origin: allowedOrigins,
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+});
+
+// Middleware CORS pour Express
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.some(allowed => {
+    if (allowed.includes('*')) {
+      return origin && origin.includes('railway.app');
+    }
+    return origin === allowed;
+  })) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 
 app.use(express.static('public'));
 app.use(express.json());
