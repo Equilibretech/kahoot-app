@@ -1,0 +1,112 @@
+{
+  "quizzes": [
+    {
+      "id": "default",
+      "title": "Quiz Général",
+      "description": "Questions générales de culture",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Quelle est la capitale de la France ?",
+          "options": [
+            "Paris",
+            "Lyon",
+            "Marseille",
+            "Toulouse"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": 2,
+          "question": "Combien font 2 + 2 ?",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "correct": 1,
+          "timeLimit": 20
+        },
+        {
+          "id": 3,
+          "question": "Quelle couleur obtient-on en mélangeant rouge et bleu ?",
+          "options": [
+            "Vert",
+            "Violet",
+            "Orange",
+            "Jaune"
+          ],
+          "correct": 1,
+          "timeLimit": 25
+        }
+      ]
+    },
+    {
+      "id": "science",
+      "title": "Quiz Science",
+      "description": "Questions scientifiques",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Quelle est la formule chimique de l'eau ?",
+          "options": [
+            "H2O",
+            "CO2",
+            "O2",
+            "H2SO4"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": 2,
+          "question": "Combien de planètes dans notre système solaire ?",
+          "options": [
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "correct": 1,
+          "timeLimit": 25
+        },
+        {
+          "id": 3,
+          "question": "Quelle est la vitesse de la lumière ?",
+          "options": [
+            "300 000 km/s",
+            "150 000 km/s",
+            "450 000 km/s",
+            "600 000 km/s"
+          ],
+          "correct": 0,
+          "timeLimit": 35
+        }
+      ]
+    },
+    {
+      "id": "1751799588670",
+      "title": "qsdqsd",
+      "description": "",
+      "createdAt": "2025-07-06T10:59:48.670Z",
+      "questions": [
+        {
+          "id": 1,
+          "question": "qsdqsd",
+          "options": [
+            "qqsdq",
+            "sdqsdqs",
+            "dqsdqsdq",
+            "sdqsdqs"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        }
+      ]
+    }
+  ]
+}

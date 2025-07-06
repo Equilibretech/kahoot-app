@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizApp - Administration</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .admin-container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        
+        .game-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .game-code {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .control-buttons button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+        }
+        
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .player-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            text-align: center;
+        }
+        
+        .current-question {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .question-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options-list li {
+            padding: 8px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .correct-answer {
+            background: #28a745 !important;
+            color: white;
+        }
+        
+        .quiz-preview {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+        }
+        
+        .quiz-preview h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .quiz-preview p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        #quiz-selector {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="container">
+            <h1>🎮 Administration</h1>
+            
+            <div id="setup-screen">
+                <div class="control-buttons">
+                    <button onclick="location.href='/quiz-builder'" style="background: #28a745;">🎯 Créer un Quiz</button>
+                    <button onclick="showQuizSelection()">📋 Mes Quiz</button>
+                </div>
+                
+                <input type="text" id="host-name" placeholder="Nom de l'hôte" value="Admin">
+                
+                <div id="quiz-selection" class="hidden">
+                    <h3>Sélectionner un Quiz</h3>
+                    <select id="quiz-selector">
+                        <option value="">Chargement des quiz...</option>
+                    </select>
+                    <div id="quiz-preview" class="quiz-preview hidden">
+                        <h4 id="quiz-title-preview"></h4>
+                        <p id="quiz-description-preview"></p>
+                        <p id="quiz-questions-count"></p>
+                    </div>
+                </div>
+                
+                <button onclick="createGame()" id="create-game-btn" disabled>Créer un nouveau jeu</button>
+            </div>
+
+            <div id="game-lobby" class="hidden">
+                <div class="game-info">
+                    <h2>Jeu créé !</h2>
+                    <div class="game-code" id="display-game-code">ABC123</div>
+                    <p>Les joueurs peuvent rejoindre avec ce code</p>
+                </div>
+                
+                <div class="status waiting">
+                    <span id="game-status">En attente des joueurs...</span>
+                </div>
+                
+                <div class="players-count">
+                    <span id="admin-players-count">0</span> joueur(s) connecté(s)
+                </div>
+                
+                <div class="players-grid" id="players-grid">
+                </div>
+                
+                <div class="control-buttons">
+                    <button onclick="startGame()" id="start-btn">Démarrer le jeu</button>
+                    <button onclick="location.reload()" style="background: #dc3545;">Nouveau jeu</button>
+                </div>
+            </div>
+
+            <div id="game-control" class="hidden">
+                <div class="current-question" id="current-question-display">
+                    <div class="question-text" id="admin-question-text">Question en cours...</div>
+                    <div class="question-info">
+                        Question <span id="admin-question-number">1</span>/<span id="admin-total-questions">3</span>
+                    </div>
+                    <ul class="options-list" id="admin-options-list">
+                    </ul>
+                </div>
+                
+                <div class="control-buttons">
+                    <button onclick="nextQuestion()" id="next-btn">Question suivante</button>
+                    <button onclick="endGame()" style="background: #dc3545;">Terminer le jeu</button>
+                </div>
+                
+                <div class="players-grid" id="game-players-grid">
+                </div>
+            </div>
+
+            <div id="game-results" class="hidden">
+                <h2>🏆 Résultats finaux</h2>
+                
+                <div class="leaderboard">
+                    <h3>Classement final</h3>
+                    <div id="final-leaderboard"></div>
+                </div>
+                
+                <button onclick="location.reload()">Créer un nouveau jeu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>

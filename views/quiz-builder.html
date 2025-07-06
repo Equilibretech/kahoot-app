@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizApp - Créateur de Quiz</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .quiz-builder-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .quiz-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-info input, .quiz-info textarea {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-info textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        .question-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+        
+        .delete-question {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .question-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .option-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .option-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .option-radio {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .time-limit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .time-limit input {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .add-question-btn {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .save-quiz-btn {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-buttons button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .nav-buttons button.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-builder-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-builder-container">
+        <h1>🎯 Créateur de Quiz</h1>
+        
+        <div class="nav-buttons">
+            <button onclick="location.href='/admin'">← Retour Admin</button>
+            <button onclick="showQuizList()">Mes Quiz</button>
+        </div>
+        
+        <div id="quiz-form">
+            <div class="quiz-info">
+                <h2>Informations du Quiz</h2>
+                <input type="text" id="quiz-title" placeholder="Titre du quiz" required>
+                <textarea id="quiz-description" placeholder="Description du quiz (optionnel)"></textarea>
+            </div>
+            
+            <div id="questions-container">
+                <div class="question-card" data-question="1">
+                    <div class="question-header">
+                        <span class="question-number">Question 1</span>
+                        <button class="delete-question" onclick="deleteQuestion(1)" style="display: none;">Supprimer</button>
+                    </div>
+                    
+                    <input type="text" class="question-input" placeholder="Votre question..." required>
+                    
+                    <div class="options-container">
+                        <div class="option-group">
+                            <input type="radio" name="correct-1" value="0" class="option-radio">
+                            <input type="text" class="option-input" placeholder="Option A" required>
+                        </div>
+                        <div class="option-group">
+                            <input type="radio" name="correct-1" value="1" class="option-radio">
+                            <input type="text" class="option-input" placeholder="Option B" required>
+                        </div>
+                        <div class="option-group">
+                            <input type="radio" name="correct-1" value="2" class="option-radio">
+                            <input type="text" class="option-input" placeholder="Option C" required>
+                        </div>
+                        <div class="option-group">
+                            <input type="radio" name="correct-1" value="3" class="option-radio">
+                            <input type="text" class="option-input" placeholder="Option D" required>
+                        </div>
+                    </div>
+                    
+                    <div class="time-limit">
+                        <label>Temps limite:</label>
+                        <input type="number" value="30" min="10" max="120">
+                        <span>secondes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="add-question-btn" onclick="addQuestion()">+ Ajouter une question</button>
+            <button class="save-quiz-btn" onclick="saveQuiz()">💾 Sauvegarder le Quiz</button>
+        </div>
+        
+        <div id="quiz-list" style="display: none;">
+            <h2>Mes Quiz Créés</h2>
+            <div id="quiz-list-container">
+                <!-- Les quiz seront chargés ici -->
+            </div>
+            <button onclick="showQuizForm()">+ Créer un nouveau quiz</button>
+        </div>
+        
+        <div id="success-message" class="hidden" style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-top: 20px;">
+            Quiz sauvegardé avec succès !
+        </div>
+        
+        <div id="error-message" class="hidden" style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-top: 20px;">
+            Erreur lors de la sauvegarde
+        </div>
+    </div>
+
+    <script src="/js/quiz-builder.js"></script>
+</body>
+</html>
